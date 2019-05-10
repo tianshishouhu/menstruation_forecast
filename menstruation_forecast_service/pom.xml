@@ -13,7 +13,7 @@
 	<version>1.0.0-releases</version>
 	<packaging>jar</packaging>
 
-	<name>月经预测服务服务</name>
+	<name>月经预测服务</name>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>

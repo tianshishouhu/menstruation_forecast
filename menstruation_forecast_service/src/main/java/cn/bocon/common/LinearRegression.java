@@ -1,4 +1,10 @@
 package cn.bocon.common;
+
+import java.util.Date;
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 /**
  * File        : DataPoint.java
  * Author      : zhouyujie
@@ -59,15 +65,31 @@ public class LinearRegression {
 	public static void main(String args[]) {
 		RegressionLine line = new RegressionLine();
  
-		line.addDataPoint(new DataPoint(1, 136));
-		line.addDataPoint(new DataPoint(2, 143));
-		line.addDataPoint(new DataPoint(3, 132));
-		line.addDataPoint(new DataPoint(4, 142));
-		line.addDataPoint(new DataPoint(5, 147));
- 
-		printSums(line);
-		printLine(line);
-		System.out.println(line.getA1()*6 + line.getA0());
+		List<String> list = Lists.newArrayList();
+		List<Long> dateList = Lists.newArrayList();
+		list.add("2018-8-18");
+		list.add("2018-9-15");
+		list.add("2018-10-17");
+		list.add("2018-12-16");
+		list.add("2019-1-15");
+		list.add("2019-2-16");
+		list.add("2019-3-21");
+		list.add("2019-4-25");
+		//list.add("2019-5-25");
+		
+		for (String temp : list) {
+			dateList.add(DateUtil.stringToDate(temp, DateUtil.DATE_FORMAT).getTime()/100000);
+		}
+		for (int i = 0; i < dateList.size(); i++) {
+			line.addDataPoint(new DataPoint(i+1, dateList.get(i)));
+		}
+		//printSums(line);
+		//printLine(line);
+		int size = dateList.size() + 1;
+		//System.out.println(size);
+		Float i = (line.getA1()*size + line.getA0());
+		
+		System.out.println(DateUtil.dateToCompactString(new Date(i.longValue()*100000)));
 	}
  
 	/**
