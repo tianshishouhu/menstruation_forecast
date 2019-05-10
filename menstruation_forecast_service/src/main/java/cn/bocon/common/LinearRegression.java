@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
  * Date        : 2012-01-11 16:00:00
  * Description : Java实现一元线性回归的算法，线性回归测试类，(可实现统计指标的预测)
  */
- 
+
 /**
  * <p>
  * <b>Linear Regression</b> <br>
@@ -51,52 +51,61 @@ import com.google.common.collect.Lists;
  * https://blog.csdn.net/zyujie/article/details/9245089
  */
 public class LinearRegression {
- 
-	private static final int MAX_POINTS = 10;
- 
-	private double E;
- 
-	/**
-	 * Main program.
-	 * 
-	 * @param args
-	 *            the array of runtime arguments
-	 */
-	public static void main(String args[]) {
-		RegressionLine line = new RegressionLine();
- 
+
+	public static void main(String args[]) throws Exception {
+		List<Integer> daysList = Lists.newArrayList();
 		List<String> list = Lists.newArrayList();
-		List<Long> dateList = Lists.newArrayList();
 		list.add("2018-8-18");
 		list.add("2018-9-15");
 		list.add("2018-10-17");
+		list.add("2018-11-17");
 		list.add("2018-12-16");
 		list.add("2019-1-15");
 		list.add("2019-2-16");
 		list.add("2019-3-21");
 		list.add("2019-4-25");
-		//list.add("2019-5-25");
-		
-		for (String temp : list) {
-			dateList.add(DateUtil.stringToDate(temp, DateUtil.DATE_FORMAT).getTime()/100000);
+
+		for (int i = 0; i < list.size() - 1; i++) {
+			Date date1 = DateUtil.stringToDate(list.get(i), DateUtil.DATE_FORMAT);
+			Date date2 = DateUtil.stringToDate(list.get(i + 1), DateUtil.DATE_FORMAT);
+			int days = DateUtil.getDaysBetween(date1, date2);
+			daysList.add(days);
 		}
-		for (int i = 0; i < dateList.size(); i++) {
-			line.addDataPoint(new DataPoint(i+1, dateList.get(i)));
+
+		RegressionLine line = new RegressionLine();
+
+		for (int i = 0; i < daysList.size(); i++) {
+			line.addDataPoint(new DataPoint(i + 1, daysList.get(i)));
 		}
-		//printSums(line);
-		//printLine(line);
-		int size = dateList.size() + 1;
-		//System.out.println(size);
-		Float i = (line.getA1()*size + line.getA0());
-		
-		System.out.println(DateUtil.dateToCompactString(new Date(i.longValue()*100000)));
+
+		String lastStr = list.get(list.size() - 1);
+		Date lastDate = DateUtil.stringToDate(lastStr, DateUtil.DATE_FORMAT);
+		float result = line.getA1() * 6 + line.getA0();
+		Date resultDate = DateUtil.addDays(lastDate, (int) result);
+		System.out.println("预测时间： " + DateUtil.dateToNormalString(resultDate));
+		// printSums(line);
+		// printLine(line);
+		System.out.println(result);
 	}
- 
+
+	public static void main44(String args[]) {
+		RegressionLine line = new RegressionLine();
+
+		line.addDataPoint(new DataPoint(1, 135));
+		line.addDataPoint(new DataPoint(2, 137));
+		line.addDataPoint(new DataPoint(3, 139));
+		line.addDataPoint(new DataPoint(4, 141));
+		line.addDataPoint(new DataPoint(5, 143));
+
+		printSums(line);
+		printLine(line);
+		System.out.println(line.getA1() * 6 + line.getA0());
+	}
+
 	/**
 	 * Print the computed sums.
 	 * 
-	 * @param line
-	 *            the regression line
+	 * @param line the regression line
 	 */
 	private static void printSums(RegressionLine line) {
 		System.out.println("\n数据点个数 n = " + line.getDataPointCount());
@@ -105,22 +114,20 @@ public class LinearRegression {
 		System.out.println("Sum xx = " + line.getSumXX());
 		System.out.println("Sum xy = " + line.getSumXY());
 		System.out.println("Sum yy = " + line.getSumYY());
- 
+
 	}
- 
+
 	/**
 	 * Print the regression line function.
 	 * 
-	 * @param line
-	 *            the regression line
+	 * @param line the regression line
 	 */
 	private static void printLine(RegressionLine line) {
-		System.out.println("\n回归线公式:  y = " + line.getA1() + "x + "
-				+ line.getA0());
+		System.out.println("\n回归线公式:  y = " + line.getA1() + "x + " + line.getA0());
 		System.out.println("误差：     R^2 = " + line.getR());
 	}
-	
-	//y = 2.1x + 133.7   2.1 * 6 + 133.7 = 12.6 + 133.7 = 146.3
-	//y = 2.1x + 133.7   2.1 * 7 + 133.7 = 14.7 + 133.7 = 148.4
- 
+
+	// y = 2.1x + 133.7 2.1 * 6 + 133.7 = 12.6 + 133.7 = 146.3
+	// y = 2.1x + 133.7 2.1 * 7 + 133.7 = 14.7 + 133.7 = 148.4
+
 }
