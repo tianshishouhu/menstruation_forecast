@@ -9,7 +9,7 @@
 		<relativePath>../menstruation_forecast_parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>wj_forecast_service</artifactId>
+	<artifactId>menstruation_forecast_service</artifactId>
 	<version>1.0.0-releases</version>
 	<packaging>jar</packaging>
 
