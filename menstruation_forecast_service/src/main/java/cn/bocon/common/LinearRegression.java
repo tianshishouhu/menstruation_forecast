@@ -64,6 +64,7 @@ public class LinearRegression {
 		list.add("2019-2-16");
 		list.add("2019-3-21");
 		list.add("2019-4-25");
+		list.add("2019-5-24");
 
 		for (int i = 0; i < list.size() - 1; i++) {
 			Date date1 = DateUtil.stringToDate(list.get(i), DateUtil.DATE_FORMAT);
