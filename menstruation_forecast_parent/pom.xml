@@ -25,7 +25,7 @@
         <mybatisplus.version>2.1.5</mybatisplus.version>
         <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
         <mysql-connector>5.1.39</mysql-connector>
-        <netty.version>4.1.18.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
         <druid.version>1.0.20</druid.version>
         <guava.version>19.0</guava.version>
     </properties>
